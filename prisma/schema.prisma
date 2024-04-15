@@ -17,7 +17,7 @@ model Event {
   id Int  @id @default(autoincrement())
   title String
   venue String
-  private Boolean
+  privacy Boolean?
   visibilty Boolean
   description String
   organizer String
