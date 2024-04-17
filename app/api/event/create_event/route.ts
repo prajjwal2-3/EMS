@@ -11,11 +11,14 @@ interface rooteventData {
     time: string,
     type: string
 }
-export  async function POST(req: NextApiRequest, res: NextApiResponse) {
+export  async function POST(request: Request) {
     try{
         const prisma = new PrismaClient()
-        const {title,description,venue,visibilty,organizer,photoUrl,time,type,privacy} = req.body as unknown as rooteventData
-       if(!(title && description && venue && visibilty && organizer && photoUrl && time && type && privacy)) {return res.send('mc')}
+        const res = await request.json()
+        console.log(res)
+        const {title,description,venue,visibilty,organizer,photoUrl,time,type,privacy} = res as unknown as rooteventData
+        
+    //    if(!(title && description && venue && visibilty && organizer && photoUrl && time && type && privacy)) {return new Response( JSON.stringify('mc') ,{ status:400 } )}
        const newevent = await prisma.event.create({
         data:{
             title,
@@ -29,9 +32,11 @@ export  async function POST(req: NextApiRequest, res: NextApiResponse) {
             privacy
         }
     });
- return res.send('done')
- 
+ return   Response.json({newevent})
     }catch(error){
-      return  res.send('noo')
+        console.log(error)
+      return  Response.json({error})
+    
+    
     }
 }
