@@ -26,3 +26,8 @@ model Event {
   time String
   type String
 }
+model User {
+  userid Int @id @default(autoincrement())
+  username String
+  
+}
