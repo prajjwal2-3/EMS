@@ -29,5 +29,4 @@ model Event {
 model User {
   userid Int @id @default(autoincrement())
   username String
-  
 }
