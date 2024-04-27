@@ -25,8 +25,12 @@ model Event {
   photoUrl String
   time String
   type String
+  author User? @relation(fields: [authorId], references: [userid])
+  authorId Int?
 }
 model User {
   userid Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
   username String
+  events Event[]
 }
